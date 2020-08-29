@@ -5,7 +5,7 @@ const questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
 const scoreDisplay = document.getElementById('score')
 var timeEl = document.querySelector(".time");
-var secondsLeft = 10;
+var secondsLeft = 60;
 let score = 0
 const correctScoreValue = 10
 
