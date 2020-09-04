@@ -1,14 +1,22 @@
-const startButton = document.getElementById('start-btn')
-const nextButton = document.getElementById('next-btn')
-const questionContainerElement = document.getElementById('question-container')
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-buttons')
-const scoreDisplay = document.getElementById('score')
+const startButton = document.getElementById('start-btn');
+const nextButton = document.getElementById('next-btn');
+const questionContainerElement = document.getElementById('question-container');
+const quizContainer = document.getElementById('quiz-container');
+const questionElement = document.getElementById('question');
+const answerButtonsElement = document.getElementById('answer-buttons');
+const scoreDisplay = document.getElementById('score');
 var timeEl = document.querySelector(".time");
-var secondsLeft = 60;
-let score = 0
+const endContainer = document.getElementById('end-container');
+const restartButton = document.getElementById('restart-btn');
+const mostRecentScore = localStorage.getItem('mostRecentScore'); 
+const finalScore = document.getElementById('final-score');
+const initialsInput = document.getElementById('initalsInput');
+finalScore.innerText = mostRecentScore
+var secondsLeft = 5;
 const correctScoreValue = 10
-
+let score = 0
+let userInitials = ""
+var initialsDisplay = document.getElementById('final-initials');
 let shuffledQuestions, currentQuestionIndex
 
 // TIMER CONTENT //
@@ -18,21 +26,22 @@ function setTime() {
         secondsLeft--;
         timeEl.textContent = secondsLeft + " seconds left till game over";
 
-    if(secondsLeft === 0) {
+    if(secondsLeft <= 0) {
     clearInterval(timerInterval);
-    openEndPage();
+    openEndContainer();
     }
 
     }, 1000);
 }
 
-function openEndPage() {
-    window.location.replace('/end.html')
+// open end container and hide quiz container //
+function openEndContainer() {
+    endContainer.classList.remove('hide');
+    quizContainer.classList.add('hide');
+
 }
 
 setTime();
-
-
 
 // QUIZ CONTENT //
 
@@ -78,6 +87,7 @@ function resetState() {
     }
 }
 
+// this runs when an answer button is clicked //
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
@@ -86,24 +96,27 @@ function selectAnswer(e) {
         setStatusClass(button, button.dataset.correct)
     })
     if (selectedButton.dataset.correct) {
-        incrementScore(correctScoreValue)
-        console.log(score)
+        incrementScore(correctScoreValue);
     }
 
-
+// opens end page if there aren't any questions left //
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide')
     } else {
-        openEndPage()
+        openEndContainer()
         localStorage.setItem("mostRecentScore", score);
+        localStorage.setItem("mostRecentInitials", userInitials);
+        initialsDisplay.innerText = userInitials;
     }
 }
 
+// Increases score throughout game //
 function incrementScore(num) {
     score += num;
     scoreDisplay.innerText = score;
 }
 
+// Select right and wrong classes on answers //
 function setStatusClass(element, correct) {
     clearStatusClass(element)
     if (correct) {
@@ -113,9 +126,17 @@ function setStatusClass(element, correct) {
     }
 }
 
+// Clear right and wrong classes on answers //
 function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
+}
+
+// restart button event listener and function //
+
+restartButton.addEventListener('click', restartQuiz);
+function restartQuiz() {
+    window.location.replace('/index.html')
 }
 
 // Questions Object //

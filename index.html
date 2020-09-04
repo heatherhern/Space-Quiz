@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="quiz-container">
         <div id="question-container" class="hide">
             <h5 class="time"></h5>
             <h5 id="score">score loads here</h5>
@@ -24,6 +24,28 @@
         <button id="next-btn" class="next-btn btn hide">Next</button>
     </div>
     </div>
+
+<!-- This is the end page HTML -->
+
+    <div class="hide container" id="end-container">
+        <div class="content">
+            <table>
+            <tr>
+                <th>Score</th>
+                <th>Initials</th>
+            </tr>
+            </tr>
+                <td id="final-score"></td>
+                <td id="final-initials">initials this needs to update from local storage</td>
+            </tr>
+            </table>
+            <input type="text" id="initalsInput" name="initials" placeholder="enter your initials"><br>
+            <button id="restart-btn" class="restart-btn btn">Restart Game</button>
+        </div>
+    </div>
+
+<!-- end of end page html -->
+
 <script src="script.js"></script>
 </body>
 </html>
