@@ -93,12 +93,7 @@ function setTime() {
     }, 1000);
 }
 
-// open end container and hide quiz container //
-function openEndContainer() {
-    endContainer.classList.remove('hide');
-    quizContainer.classList.add('hide');
 
-}
 
 setTime();
 
@@ -111,31 +106,6 @@ nextButton.addEventListener('click', () => {
 })
 
 
-
-
-initialsButton.addEventListener('click', initialsFunction)
-
-function initialsFunction() {
-
-    if (initialsInput.value.length < 1) return;
-
-    initialsInput.innerHTML += '<li>' + initialsInput.value + '</li>';
-
-    // Save the list to localStorage
-    localStorage.setItem('recentInitials', initialsInput.value);
-    console.log(initialsInput.value);
-
-    var saved = localStorage.getItem('recentInitials');
-
-    // If there are any saved items, update our list
-    if (saved) {
-        initialsDisplay.innerHTML = saved;
-
-        // Clear input
-        initialsInput.value = '';
-
-    }
-}
 
 function startGame() {
     startButton.classList.add('hide') // hides the start button //
@@ -192,8 +162,6 @@ if (shuffledQuestions.length > currentQuestionIndex + 1) {
 } else {
     openEndContainer()
     localStorage.setItem("mostRecentScore", score);
-    // localStorage.setItem("mostRecentInitials", userInitials);
-    // initialsDisplay.innerText = userInitials;
 }
 
 
@@ -219,12 +187,45 @@ function clearStatusClass(element) {
     element.classList.remove('wrong')
 }
 
-// restart button event listener and function //
+// open end container and hide quiz container //
+function openEndContainer() {
+    endContainer.classList.remove('hide');
+    quizContainer.classList.add('hide');
 
-restartButton.addEventListener('click', restartQuiz);
-function restartQuiz() {
-    window.location.replace('/index.html')
 }
 
-// Questions Object //
+// Initials local storage //
+
+initialsButton.addEventListener('click', initialsFunction)
+
+function initialsFunction() {
+
+    if (initialsInput.value.length < 1) return;
+
+    initialsInput.innerHTML += '<li>' + initialsInput.value + '</li>';
+
+    // Save the list to localStorage
+    localStorage.setItem('recentInitials', initialsInput.value);
+    console.log(initialsInput.value);
+
+    var saved = localStorage.getItem('recentInitials');
+
+    // If there are any saved items, update our list
+    if (saved) {
+        initialsDisplay.innerHTML = saved;
+
+        // Clear input
+        initialsInput.value = '';
+
+    }
+}
+
+// restart button event listener //
+
+restartButton.addEventListener('click', restartGame)
+
+function restartGame() {
+    startButton.classList.remove('hide')
+}
+
 
