@@ -13,7 +13,7 @@ const finalScore = document.getElementById('final-score');
 const initialsInput = document.getElementById('initalsInput');
 const initialsButton = document.getElementById('initials-btn');
 finalScore.innerText = mostRecentScore
-var secondsLeft = 60;
+var secondsLeft = 20;
 const correctScoreValue = 10
 let score = 0
 let userInitials = ""
@@ -94,7 +94,7 @@ function setTime(){
 
     if(secondsLeft === 0) {
         clearInterval(timerInterval);
-        alert("You have ran out of time");
+        alert("You are out of time :-(");
         openEndContainer();
     }
 }, 1000);
@@ -136,6 +136,8 @@ function showQuestion(question) {
         button.classList.add('btn')
         if (answer.correct) {
             button.dataset.correct = answer.correct
+            score = score + 10;
+            console.log(score);
         }
         button.addEventListener('click', selectAnswer)
         answerButtonsElement.appendChild(button)
