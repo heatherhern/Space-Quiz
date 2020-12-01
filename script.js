@@ -222,6 +222,17 @@ function initialsFunction() {
     }
 }
 
+// NEW //
+
+// getScores();
+// function getScores() {
+//     var storedScores = JSON.parse(localStorage.getItem("leaderboardEntries"));
+
+//     if (storedScores !== null) {
+//         leaderboardEntries = storedScores;
+//     }
+// };
+
 
 
 
