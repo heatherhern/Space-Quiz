@@ -93,7 +93,6 @@ function setTime(){
 
     if(secondsLeft === 0) {
         clearInterval(timerInterval);
-        alert("You are out of time :-(");
         openEndContainer();
     }
 }, 1000);
