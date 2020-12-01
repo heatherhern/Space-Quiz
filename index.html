@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Space Quiz</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+
 <body>
     <div class="container" id="quiz-container">
         <div id="question-container" class="hide">
@@ -15,40 +17,41 @@
             <h5 id="score">score loads here</h5>
             <div id="question">Question</div>
             <div id="answer-buttons" class="button-grid">
-            <button class="btn">Answer 1</button>
-            <button class="btn">Answer 2</button>
-            <button class="btn">Answer 3</button>
-            <button class="btn">Answer 4</button>
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
             </div>
         </div>
-    <div class="controls">
-        <button id="start-btn" class="start-btn btn-dark">Start</button>
-        <button id="next-btn" class="next-btn btn-dark hide">Next</button>
-    </div>
+        <div class="controls">
+            <button id="start-btn" class="start-btn btn-dark">Start</button>
+            <button id="next-btn" class="next-btn btn-dark hide">Next</button>
+        </div>
     </div>
 
-<!-- This is the end page HTML -->
+    <!-- This is the end page HTML -->
 
     <div class="hide container" id="end-container">
         <div class="content">
             <table>
-            <tr>
-                <th>Score</th>
-                <th class="initialsDisplay">Initials</th>
-            </tr>
-            </tr>
+                <tr>
+                    <th>Score</th>
+                    <th class="initialsDisplay">Initials</th>
+                </tr>
+                </tr>
                 <td id="final-score"></td>
                 <td id="final-initials"></td>
-            </tr>
+                </tr>
             </table>
             <input type="text" id="initalsInput" name="initials" placeholder="enter your initials">
-            <button id="initials-btn" class="initialst-btn btn-dark">Enter</button><br>
-            <button id="restart-btn" class="restart-btn btn-dark">Restart Game</button>
+            <button id="initials-btn" class="initialst-btn btn-dark">Enter</button>
+            <p><i>refresh page to restart</i></p>
         </div>
     </div>
 
-<!-- end of end page html -->
+    <!-- end of end page html -->
 
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>

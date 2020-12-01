@@ -7,7 +7,6 @@ const answerButtonsElement = document.getElementById('answer-buttons');
 const scoreDisplay = document.getElementById('score');
 var timerEl = document.querySelector(".time");
 const endContainer = document.getElementById('end-container');
-const restartButton = document.getElementById('restart-btn');
 const mostRecentScore = localStorage.getItem('mostRecentScore');
 const finalScore = document.getElementById('final-score');
 const initialsInput = document.getElementById('initalsInput');
@@ -164,19 +163,9 @@ function selectAnswer(e) {
     if (shuffledQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove('hide')
     } else {
-        startButton.innerText = 'Restart'
-        startButton.classList.remove('hide')
+        openEndContainer();
     }
 }
-
-
-// // opens end page if there aren't any questions left //
-// if (shuffledQuestions.length > currentQuestionIndex + 1) {
-//     nextButton.classList.remove('hide')
-// } else {
-//     openEndContainer()
-//     localStorage.setItem("mostRecentScore", score);
-// }
 
 
 // Increases score throughout game //
@@ -234,12 +223,6 @@ function initialsFunction() {
     }
 }
 
-// // restart button event listener //
 
-// restartButton.addEventListener('click', restartGame)
-
-// function restartGame() {
-//     startButton.classList.remove('hide')
-// }
 
 
