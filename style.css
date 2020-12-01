@@ -94,3 +94,19 @@ form {
 .hide {
     display: none;
 }
+
+.time {
+    font-size: 25px;
+}
+
+#time {
+    font-size: 40px;
+}
+
+.green-time {
+    color: #00ce00;
+}
+
+.red-time {
+    color: red;
+}

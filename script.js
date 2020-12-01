@@ -5,7 +5,7 @@ const quizContainer = document.getElementById('quiz-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
 const scoreDisplay = document.getElementById('score');
-var timeEl = document.querySelector(".time");
+var timerEl = document.querySelector(".time");
 const endContainer = document.getElementById('end-container');
 const restartButton = document.getElementById('restart-btn');
 const mostRecentScore = localStorage.getItem('mostRecentScore');
@@ -13,7 +13,7 @@ const finalScore = document.getElementById('final-score');
 const initialsInput = document.getElementById('initalsInput');
 const initialsButton = document.getElementById('initials-btn');
 finalScore.innerText = mostRecentScore
-var secondsLeft = 5;
+var secondsLeft = 60;
 const correctScoreValue = 10
 let score = 0
 let userInitials = ""
@@ -77,25 +77,32 @@ const questions = [
     }
 ]
 
+//sets the timer for game
+function setTime(){
+    timerInterval = setInterval(function(){
+    secondsLeft--;
+    timerEl.textContent = secondsLeft;
 
-// TIMER CONTENT //
+    if(secondsLeft > 30){
+        timerEl.setAttribute("class", "green-time");
+    } else if(secondsLeft < 15) {
+        timerEl.setAttribute("class", "red-time");
+    } else {
+        timerEl.setAttribute("class", "red-time");
+    }
 
-function setTime() {
-    var timerInterval = setInterval(function () {
-        secondsLeft--;
-        timeEl.textContent = secondsLeft + " seconds left till game over";
 
-        if (secondsLeft <= 0) {
-            clearInterval(timerInterval);
-            openEndContainer();
-        }
-
-    }, 1000);
+    if(secondsLeft === 0) {
+        clearInterval(timerInterval);
+        alert("You have ran out of time");
+        openEndContainer();
+    }
+}, 1000);
 }
 
 
 
-setTime();
+
 
 // QUIZ CONTENT //
 
@@ -113,6 +120,7 @@ function startGame() {
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide') // makes the question visible //
     setNextQuestion()
+    setTime();
 }
 
 function setNextQuestion() {
@@ -151,18 +159,22 @@ function selectAnswer(e) {
     Array.from(answerButtonsElement.children).forEach(button => {
         setStatusClass(button, button.dataset.correct)
     })
-    if (selectedButton.dataset.correct) {
-        incrementScore(correctScoreValue);
+    if (shuffledQuestions.length > currentQuestionIndex + 1) {
+        nextButton.classList.remove('hide')
+    } else {
+        startButton.innerText = 'Restart'
+        startButton.classList.remove('hide')
     }
 }
 
-// opens end page if there aren't any questions left //
-if (shuffledQuestions.length > currentQuestionIndex + 1) {
-    nextButton.classList.remove('hide')
-} else {
-    openEndContainer()
-    localStorage.setItem("mostRecentScore", score);
-}
+
+// // opens end page if there aren't any questions left //
+// if (shuffledQuestions.length > currentQuestionIndex + 1) {
+//     nextButton.classList.remove('hide')
+// } else {
+//     openEndContainer()
+//     localStorage.setItem("mostRecentScore", score);
+// }
 
 
 // Increases score throughout game //
@@ -220,12 +232,12 @@ function initialsFunction() {
     }
 }
 
-// restart button event listener //
+// // restart button event listener //
 
-restartButton.addEventListener('click', restartGame)
+// restartButton.addEventListener('click', restartGame)
 
-function restartGame() {
-    startButton.classList.remove('hide')
-}
+// function restartGame() {
+//     startButton.classList.remove('hide')
+// }
 
 
