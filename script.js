@@ -13,9 +13,9 @@ const initialsInput = document.getElementById('initalsInput');
 const initialsButton = document.getElementById('initials-btn');
 finalScore.innerText = mostRecentScore
 var secondsLeft = 10;
-const correctScoreValue = 10
 let score = 0
 let userInitials = ""
+let leaderboard = [];
 var initialsDisplay = document.getElementById('final-initials');
 let shuffledQuestions, currentQuestionIndex
 
@@ -90,7 +90,6 @@ function setTime(){
         timerEl.setAttribute("class", "red-time");
     }
 
-
     if(secondsLeft === 0) {
         clearInterval(timerInterval);
         openEndContainer();
@@ -98,32 +97,25 @@ function setTime(){
 }, 1000);
 }
 
-
-
-
-
-// QUIZ CONTENT //
-
 startButton.addEventListener('click', startGame)
 nextButton.addEventListener('click', () => {
     currentQuestionIndex++
     setNextQuestion()
 })
 
-
-
 function startGame() {
+    setTime();
     startButton.classList.add('hide') // hides the start button //
     shuffledQuestions = questions.sort(() => Math.random() - .5) // picks a question //
     currentQuestionIndex = 0
     questionContainerElement.classList.remove('hide') // makes the question visible //
     setNextQuestion()
-    setTime();
 }
 
 function setNextQuestion() {
     resetState()
     showQuestion(shuffledQuestions[currentQuestionIndex])
+    scoreDisplay.innerText = "Your Score: " + score;
 }
 
 function showQuestion(question) {
@@ -134,8 +126,6 @@ function showQuestion(question) {
         button.classList.add('btn')
         if (answer.correct) {
             button.dataset.correct = answer.correct
-            score = score + 10;
-            console.log(score);
         }
         button.addEventListener('click', selectAnswer)
         answerButtonsElement.appendChild(button)
@@ -152,6 +142,7 @@ function resetState() {
 }
 
 // this runs when an answer button is clicked //
+// increment score here instead of above // if correct, increment. 
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
@@ -164,13 +155,9 @@ function selectAnswer(e) {
     } else {
         openEndContainer();
     }
-}
-
-
-// Increases score throughout game //
-function incrementScore(num) {
-    score += num;
-    scoreDisplay.innerText = score;
+    if (correct) {
+        score = score + 10;
+    }
 }
 
 // Select right and wrong classes on answers //
@@ -193,7 +180,7 @@ function clearStatusClass(element) {
 function openEndContainer() {
     endContainer.classList.remove('hide');
     quizContainer.classList.add('hide');
-
+    finalScore.textContent = score;
 }
 
 // Initials local storage //
@@ -201,15 +188,12 @@ function openEndContainer() {
 initialsButton.addEventListener('click', initialsFunction)
 
 function initialsFunction() {
-
     if (initialsInput.value.length < 1) return;
-
     initialsInput.innerHTML += '<li>' + initialsInput.value + '</li>';
-
+    
     // Save the list to localStorage
     localStorage.setItem('recentInitials', initialsInput.value);
     console.log(initialsInput.value);
-
     var saved = localStorage.getItem('recentInitials');
 
     // If there are any saved items, update our list
@@ -218,21 +202,22 @@ function initialsFunction() {
 
         // Clear input
         initialsInput.value = '';
-
     }
 }
 
-// NEW //
+// loads all previous scores saved //
+// list top scores //
 
-// getScores();
-// function getScores() {
-//     var storedScores = JSON.parse(localStorage.getItem("leaderboardEntries"));
+getScores();
+function getScores() {
+    var storedScores = JSON.parse(localStorage.getItem("leaderboard"));
 
-//     if (storedScores !== null) {
-//         leaderboardEntries = storedScores;
-//     }
-// };
-
-
+    if (storedScores !== null) {
+        leaderboard = storedScores;
+    }
+};
 
 
+
+
+// score automatically starts at 10 and not 0? //
