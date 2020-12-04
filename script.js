@@ -181,6 +181,7 @@ function openEndContainer() {
     endContainer.classList.remove('hide');
     quizContainer.classList.add('hide');
     finalScore.textContent = score;
+    generateTable();
 }
 
 // Initials local storage //
@@ -206,7 +207,7 @@ function initialsFunction() {
 }
 
 // loads all previous scores saved //
-// list top scores //
+// just list top scores //
 
 getScores();
 function getScores() {
@@ -218,6 +219,16 @@ function getScores() {
 };
 
 
-
+generateTable();
+function generateTable() {
+    // let rows = "<tbody>";
+    // for (i = 0; i < leaderboard.length; i++) {
+    //     rows += "<tr>";
+    //     rows += "<td>" + leaderboard[i].totalScore + "</td>";
+    //     rows += "</tr>";
+    // }
+    // rows += "</tbody>";
+    document.getElementById("tableData").innerHTML = rows;
+};
 
 // score automatically starts at 10 and not 0? //
