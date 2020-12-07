@@ -11,8 +11,9 @@ const mostRecentScore = localStorage.getItem('mostRecentScore');
 const finalScore = document.getElementById('final-score');
 const initialsInput = document.getElementById('initalsInput');
 const initialsButton = document.getElementById('initials-btn');
+let inputList = document.querySelector("#inputList");
 finalScore.innerText = mostRecentScore
-var secondsLeft = 5;
+var secondsLeft = 10;
 let score = 0
 let userInitials = ""
 let leaderboard = [];
@@ -181,7 +182,6 @@ function openEndContainer() {
     endContainer.classList.remove('hide');
     quizContainer.classList.add('hide');
     finalScore.textContent = score;
-    generateTable();
 }
 
 // Initials local storage //
@@ -211,35 +211,46 @@ function initialsFunction() {
 
         // Clear input
         initialsInput.value = '';
-    }
+        }
 }
 
 function addEntry(totalScore, playerInitials) {
     leaderboard.push({ totalScore, playerInitials });
+    storeItems();
     console.log(leaderboard);
 };
 
-// loads all previous scores saved //
-// just list top scores //
 
-getScores();
-function getScores() {
-    var storedScores = JSON.parse(localStorage.getItem("leaderboard"));
+retrieveItems();
 
-    if (storedScores !== null) {
-        leaderboard = storedScores;
+function renderInputs() {
+
+    for (var i = 0; i < leaderboard.length; i++) {
+        var input = leaderboard[i];
+
+        var li = document.createElement("li");
+        li.textContent = `${input.playerInitials} ${input.totalScore}`;
+        inputList = [];
+        inputList.appendChild(li);
     }
-};
+}
 
-generateTable();
-function generateTable() {
-    let rows = "<tbody>";
-    for (i = 0; i < leaderboard.length; i++) {
-        rows += "<tr>";
-        rows += "<td>" + leaderboard[i].totalScore + "</td>";
-        rows += "</tr>";
+function retrieveItems() {
+
+    var storedItems = JSON.parse(localStorage.getItem("leaderboard"))
+
+    if (storedItems !== null) {
+        leaderboard = storedItems;
     }
-    rows += "</tbody>";
-    document.getElementById("tableData").innerHTML = rows;
-};
+
+    console.log(leaderboard)
+
+    renderInputs();
+}
+
+function storeItems() {
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+
+    retrieveItems();
+}
 
