@@ -17,7 +17,7 @@ body {
     width: 100vw;
     justify-content: center;
     align-items: center;
-    background-image: url("Assets/space.jpg");
+    background-image: url("Assets/img/space.jpg");
 }
 
 .container {
@@ -72,7 +72,6 @@ body {
 }
 
 #end-container {
-    /* display: flex; */
     justify-content: center;
     align-items: center;
 }
