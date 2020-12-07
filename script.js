@@ -13,7 +13,7 @@ const initialsInput = document.getElementById('initalsInput');
 const initialsButton = document.getElementById('initials-btn');
 let inputList = document.querySelector("#inputList");
 finalScore.innerText = mostRecentScore
-var secondsLeft = 10;
+var secondsLeft = 60;
 let score = 0
 let userInitials = ""
 let leaderboard = [];
@@ -174,8 +174,6 @@ function openEndContainer() {
     endContainer.classList.remove('hide');
     quizContainer.classList.add('hide');
     finalScore.textContent = score;
-    inputList = [];
-
 }
 
 initialsButton.addEventListener('click', initialsFunction)
@@ -193,9 +191,9 @@ function initialsFunction() {
 
     if (saved) {
         initialsDisplay.innerHTML = saved;
-
         initialsInput.value = '';
         }
+        storeItems();
 }
 
 function addEntry(totalScore, playerInitials) {
@@ -207,10 +205,9 @@ function addEntry(totalScore, playerInitials) {
 retrieveItems();
 
 function renderInputs() {
-
+    inputList.textContent = leaderboard.length;
     for (var i = 0; i < leaderboard.length; i++) {
         var input = leaderboard[i];
-
         var li = document.createElement("li");
         li.textContent = `${input.playerInitials} ${input.totalScore}`;
         inputList.appendChild(li);
@@ -218,20 +215,14 @@ function renderInputs() {
 }
 
 function retrieveItems() {
-
     var storedItems = JSON.parse(localStorage.getItem("leaderboard"))
-
     if (storedItems !== null) {
         leaderboard = storedItems;
     }
-
-    console.log(leaderboard)
-
     renderInputs();
 }
 
 function storeItems() {
     localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
-
     retrieveItems();
 }
