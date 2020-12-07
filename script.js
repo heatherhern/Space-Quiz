@@ -20,8 +20,6 @@ let leaderboard = [];
 var initialsDisplay = document.getElementById('final-initials');
 let shuffledQuestions, currentQuestionIndex
 
-// Questions object //
-
 const questions = [
     {
         question: 'What makes up most of the mass in our solar system?',
@@ -77,7 +75,7 @@ const questions = [
     }
 ]
 
-//sets the timer for game
+
 function setTime(){
     timerInterval = setInterval(function(){
     secondsLeft--;
@@ -106,10 +104,10 @@ nextButton.addEventListener('click', () => {
 
 function startGame() {
     setTime();
-    startButton.classList.add('hide') // hides the start button //
-    shuffledQuestions = questions.sort(() => Math.random() - .5) // picks a question //
+    startButton.classList.add('hide') 
+    shuffledQuestions = questions.sort(() => Math.random() - .5) 
     currentQuestionIndex = 0
-    questionContainerElement.classList.remove('hide') // makes the question visible //
+    questionContainerElement.classList.remove('hide') 
     setNextQuestion()
 }
 
@@ -131,7 +129,6 @@ function showQuestion(question) {
         button.addEventListener('click', selectAnswer)
         answerButtonsElement.appendChild(button)
     })
-
 }
 
 function resetState() {
@@ -142,8 +139,6 @@ function resetState() {
     }
 }
 
-// this runs when an answer button is clicked //
-// increment score here instead of above // if correct, increment. 
 function selectAnswer(e) {
     const selectedButton = e.target
     const correct = selectedButton.dataset.correct
@@ -161,7 +156,6 @@ function selectAnswer(e) {
     }
 }
 
-// Select right and wrong classes on answers //
 function setStatusClass(element, correct) {
     clearStatusClass(element)
     if (correct) {
@@ -171,20 +165,18 @@ function setStatusClass(element, correct) {
     }
 }
 
-// Clear right and wrong classes on answers //
 function clearStatusClass(element) {
     element.classList.remove('correct')
     element.classList.remove('wrong')
 }
 
-// open end container and hide quiz container //
 function openEndContainer() {
     endContainer.classList.remove('hide');
     quizContainer.classList.add('hide');
     finalScore.textContent = score;
-}
+    inputList = [];
 
-// Initials local storage //
+}
 
 initialsButton.addEventListener('click', initialsFunction)
 
@@ -192,24 +184,16 @@ function initialsFunction() {
     if (initialsInput.value.length < 1) return;
     initialsInput.innerHTML += '<li>' + initialsInput.value + '</li>';
     
-    // Save the list to localStorage
     localStorage.setItem('recentInitials', initialsInput.value);
-    // console.log(initialsInput.value);
-    // console.log(localStorage.recentScores);
-
     playerInitials = initialsInput.value;
     playerInitials = playerInitials.toUpperCase();
     addEntry(score, playerInitials);
 
-
-
     var saved = localStorage.getItem('recentInitials');
 
-    // If there are any saved items, update our list
     if (saved) {
         initialsDisplay.innerHTML = saved;
 
-        // Clear input
         initialsInput.value = '';
         }
 }
@@ -220,7 +204,6 @@ function addEntry(totalScore, playerInitials) {
     console.log(leaderboard);
 };
 
-
 retrieveItems();
 
 function renderInputs() {
@@ -230,7 +213,6 @@ function renderInputs() {
 
         var li = document.createElement("li");
         li.textContent = `${input.playerInitials} ${input.totalScore}`;
-        inputList = [];
         inputList.appendChild(li);
     }
 }
@@ -253,4 +235,3 @@ function storeItems() {
 
     retrieveItems();
 }
-
