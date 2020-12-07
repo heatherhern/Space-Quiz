@@ -12,7 +12,7 @@ const finalScore = document.getElementById('final-score');
 const initialsInput = document.getElementById('initalsInput');
 const initialsButton = document.getElementById('initials-btn');
 finalScore.innerText = mostRecentScore
-var secondsLeft = 10;
+var secondsLeft = 5;
 let score = 0
 let userInitials = ""
 let leaderboard = [];
@@ -194,7 +194,15 @@ function initialsFunction() {
     
     // Save the list to localStorage
     localStorage.setItem('recentInitials', initialsInput.value);
-    console.log(initialsInput.value);
+    // console.log(initialsInput.value);
+    // console.log(localStorage.recentScores);
+
+    playerInitials = initialsInput.value;
+    playerInitials = playerInitials.toUpperCase();
+    addEntry(score, playerInitials);
+
+
+
     var saved = localStorage.getItem('recentInitials');
 
     // If there are any saved items, update our list
@@ -205,6 +213,11 @@ function initialsFunction() {
         initialsInput.value = '';
     }
 }
+
+function addEntry(totalScore, playerInitials) {
+    leaderboard.push({ totalScore, playerInitials });
+    console.log(leaderboard);
+};
 
 // loads all previous scores saved //
 // just list top scores //
@@ -218,17 +231,15 @@ function getScores() {
     }
 };
 
-
 generateTable();
 function generateTable() {
-    // let rows = "<tbody>";
-    // for (i = 0; i < leaderboard.length; i++) {
-    //     rows += "<tr>";
-    //     rows += "<td>" + leaderboard[i].totalScore + "</td>";
-    //     rows += "</tr>";
-    // }
-    // rows += "</tbody>";
+    let rows = "<tbody>";
+    for (i = 0; i < leaderboard.length; i++) {
+        rows += "<tr>";
+        rows += "<td>" + leaderboard[i].totalScore + "</td>";
+        rows += "</tr>";
+    }
+    rows += "</tbody>";
     document.getElementById("tableData").innerHTML = rows;
 };
 
-// score automatically starts at 10 and not 0? //
